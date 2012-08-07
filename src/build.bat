@@ -7,14 +7,14 @@ SET CC=cl
 
 echo Set Options
 if "%TARGET_CPU%" == "x64" (
-  if "%configuration%" == "Release"  SET COPT= -DJU_64BIT /Ox & echo Target x64 Release: no program database, max optimisation
-  if "%configuration%" == "Debug" SET COPT= -DJU_64BIT /Od /Zi & echo Target x64 Debug: program database, no optisation
+  if "%configuration%" == "Release"  SET COPT= -DJU_64BIT /Ox /MT & echo Target x64 Release: no program database, max optimisation
+  if "%configuration%" == "Debug" SET COPT= -DJU_64BIT /Od /Zi /MTd & echo Target x64 Debug: program database, no optisation
 ) else (
-  if "%configuration%" == "Release"  SET COPT= /Ox & echo Target x86 Release: no program database, max optimisation
-  if "%configuration%" == "Debug" SET COPT= /Od /Zi & echo Target x86 Debug: program database, no optisation
+  if "%configuration%" == "Release"  SET COPT= /Ox /MT & echo Target x86 Release: no program database, max optimisation
+  if "%configuration%" == "Debug" SET COPT= /Od /Zi /MTd & echo Target x86 Debug: program database, no optisation
 )
 
-SET LOPT=
+SET LOPT=/VERBOSE:LIB
 SET O=-DJUDY1
 SET L=-DJUDYL
 SET INC=-I.. -I..\JudyCommon
