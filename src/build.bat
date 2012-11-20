@@ -2,6 +2,9 @@
 
 if not "%1" == "" call setenv %1 %2
 
+if "TARGET_CPU" == "" echo Please set TARGET_CPU to x86 or x64
+if "configuration" == "" echo Please set configuration to Debug or Release
+
 echo Set Compiler
 SET CC=cl
 
@@ -192,7 +195,11 @@ echo %CC% %INC% %COPT% -c JudyHS.c
 
 cd ..
 echo Make a Judy dll by linking all the objects togeather
-link /DLL %LOPT% JudyCommon\*.obj Judy1\*.obj JudyL\*.obj JudySL\*.obj JudyHS\*.obj /OUT:Judy.dll
+link /DLL %LOPT% JudyCommon\*.obj Judy1\*.obj JudyL\*.obj JudySL\*.obj JudyHS\*.obj /OUT:Judy%configuration%.dll
 
 echo Make a Judy archive library by linking all the objects togeather
-link /LIB %LOPT% JudyCommon\*.obj Judy1\*.obj JudyL\*.obj JudySL\*.obj JudyHS\*.obj /OUT:Judy.lib
+link /LIB %LOPT% JudyCommon\*.obj Judy1\*.obj JudyL\*.obj JudySL\*.obj JudyHS\*.obj /OUT:Judy%configuration%.lib
+
+ren judy.lib judy_%TARGET_CPU%_%configuration%.lib
+ren judy.dll judy_%TARGET_CPU%_%configuration%.dll
+echo Finished building %TARGET_CPU% %configuration%
