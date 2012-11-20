@@ -195,11 +195,9 @@ echo %CC% %INC% %COPT% -c JudyHS.c
 
 cd ..
 echo Make a Judy dll by linking all the objects togeather
-link /DLL %LOPT% JudyCommon\*.obj Judy1\*.obj JudyL\*.obj JudySL\*.obj JudyHS\*.obj /OUT:Judy%configuration%.dll
+link /DLL %LOPT% JudyCommon\*.obj Judy1\*.obj JudyL\*.obj JudySL\*.obj JudyHS\*.obj /OUT:Judy_%TARGET_CPU%_%configuration%.dll
 
 echo Make a Judy archive library by linking all the objects togeather
-link /LIB %LOPT% JudyCommon\*.obj Judy1\*.obj JudyL\*.obj JudySL\*.obj JudyHS\*.obj /OUT:Judy%configuration%.lib
+link /LIB %LOPT% JudyCommon\*.obj Judy1\*.obj JudyL\*.obj JudySL\*.obj JudyHS\*.obj /OUT:Judy_%TARGET_CPU%_%configuration%.lib
 
-ren judy.lib judy_%TARGET_CPU%_%configuration%.lib
-ren judy.dll judy_%TARGET_CPU%_%configuration%.dll
 echo Finished building %TARGET_CPU% %configuration%
