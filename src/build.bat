@@ -1,6 +1,12 @@
 @ECHO OFF
+echo Must be launched from a VS2012 command prompt
+echo Usage is:
+echo build [Debug^|Release] [x64]
 
-if not "%1" == "" call setenv %1 %2
+if "%1" == "" goto end
+
+set configuration=%1
+set TARGET_CPU=%2
 
 if "TARGET_CPU" == "" echo Please set TARGET_CPU to x86 or x64
 if "configuration" == "" echo Please set configuration to Debug or Release
@@ -201,3 +207,4 @@ echo Make a Judy archive library by linking all the objects togeather
 link /LIB %LOPT% JudyCommon\*.obj Judy1\*.obj JudyL\*.obj JudySL\*.obj JudyHS\*.obj /OUT:Judy_%TARGET_CPU%_%configuration%.lib
 
 echo Finished building %TARGET_CPU% %configuration%
+:end
